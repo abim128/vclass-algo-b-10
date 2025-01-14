@@ -1,0 +1,90 @@
+# Multiple Inheritance
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return f"{self.name} makes a sound."
+
+class Flyable:
+    def fly(self):
+        return "I can fly!"
+
+class Bird(Animal, Flyable):
+    def __init__(self, name, wing_span):
+        super().__init__(name)
+        self.wing_span = wing_span
+
+    def speak(self):
+        return f"{self.name} chirps beautifully!"
+
+# Encapsulation with Access Modifiers
+class BankAccount:
+    def __init__(self, account_holder, balance):
+        self.account_holder = account_holder
+        self.__balance = balance  # Private attribute
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+            return f"{amount} deposited successfully!"
+
+    def withdraw(self, amount):
+        if amount > self.__balance:
+            return "Insufficient funds!"
+        else:
+            self.__balance -= amount
+            return f"{amount} withdrawn successfully!"
+
+    def get_balance(self):  # Public method to access private balance
+        return f"Your balance is {self.__balance}."
+
+# Polymorphism with Function Overloading
+class Calculator:
+    def add(self, a, b, c=None):
+        if c is not None:
+            return a + b + c  # Add three numbers if c is provided
+        return a + b  # Default: Add two numbers
+
+# Polymorphism with Inheritance
+class Shape:
+    def area(self):
+        raise NotImplementedError("Subclass must implement abstract method")
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def area(self):
+        return 3.14 * self.radius**2
+
+class Rectangle(Shape):
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+
+    def area(self):
+        return self.length * self.width
+
+# Demonstration of Concepts
+# 1. Multiple Inheritance
+bird = Bird("Sparrow", 20)
+print(bird.speak())  # From Animal
+print(bird.fly())    # From Flyable
+
+# 2. Encapsulation
+account = BankAccount("John Doe", 5000)
+print(account.get_balance())
+print(account.deposit(2000))
+print(account.withdraw(8000))  # Insufficient funds
+print(account.get_balance())
+
+# 3. Polymorphism
+calc = Calculator()
+print(calc.add(3, 5))         # Add two numbers
+print(calc.add(3, 5, 7))      # Add three numbers
+
+circle = Circle(7)
+rectangle = Rectangle(10, 5)
+print(f"Circle Area: {circle.area()}")
+print(f"Rectangle Area: {rectangle.area()}")
