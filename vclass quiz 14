@@ -1,0 +1,42 @@
+class OnlineStore:
+    def __init__(self, store_name):
+        self.store_name = store_name
+        self.products = {}  # Dictionary to store product name and price
+
+    def add_product(self, product_name, price):
+        """Menambahkan produk ke dalam toko"""
+        if product_name in self.products:
+            return f"{product_name} sudah ada dalam daftar produk."
+        self.products[product_name] = price
+        return f"Produk {product_name} berhasil ditambahkan dengan harga {price}."
+
+    def remove_product(self, product_name):
+        """Menghapus produk dari toko"""
+        if product_name not in self.products:
+            return f"{product_name} tidak ditemukan dalam daftar produk."
+        del self.products[product_name]
+        return f"Produk {product_name} berhasil dihapus dari toko."
+
+    def list_products(self):
+        """Menampilkan daftar semua produk dan harganya"""
+        if not self.products:
+            return "Belum ada produk dalam toko."
+        product_list = "\n".join([f"{name}: Rp{price}" for name, price in self.products.items()])
+        return f"Daftar Produk:\n{product_list}"
+
+# Contoh Penggunaan
+store = OnlineStore("Toko Elektronik")
+
+# Menambahkan produk
+print(store.add_product("Laptop", 15000000))
+print(store.add_product("Smartphone", 8000000))
+print(store.add_product("Headset", 200000))
+
+# Menampilkan produk
+print(store.list_products())
+
+# Menghapus produk
+print(store.remove_product("Smartphone"))
+
+# Menampilkan produk setelah penghapusan
+print(store.list_products())
